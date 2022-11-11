@@ -86,6 +86,6 @@ Opening the ‘screen.png’  file shows:
 
 This shows root’s password. Use command ‘tesseract’ to convert the password image into clear text  instead of copying it down letter by letter: tesseract screen.png screen.txt <br>
 The password is ‘cah$mei7rai9A’.  Back on the target shell as user alex run command: su → when prompted for password enter the password.  <br>
-We have shell as root, can get the flag at /root/root.txt
+We have shell as root.  We can get the flag at /root/root.txt
 </body>
 </html>
