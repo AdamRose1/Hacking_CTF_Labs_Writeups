@@ -81,10 +81,9 @@ The page shows that command ‘id’ ran successfully.  Next, capture the reques
 
 ![image](https://user-images.githubusercontent.com/93153300/204039423-d0290c08-09a5-4da6-91eb-37c2548cb294.png)
 
-Open a netcat listener to catch the reverse shell (we will use pwncat as it gives a better shell): <br>
-pwncat-cs -lp 443 
+Open a netcat listener to catch the reverse shell (we will use pwncat as it gives a better shell): pwncat-cs -lp 443 
 
-Send the request and we now have a shell as user www-data.  
+Send the request.  We now have a shell as user www-data.  
 ________________________________________________________________________
 <b>Lateral Movement:</b><br>
 We find ourselves in a docker:
@@ -203,7 +202,7 @@ This file shows a script for a cron running every 10 seconds (checking with pspy
   
 Step 1: Open a netcat listener: nc -lvnp 443 <br>
 Step 2: Change file /var/www/html/backdrop/index.php to a pentestmonkey php reverse shell. <br>
-Step 3: Wait a few seconds and we now have shell as user root within the docker  
+Step 3: Wait a few seconds.  We now have shell as user root within the docker  
 ____________________________________________________________________
 <b>Docker Escape Privilege Escalation:</b><br>
 Below are the commands for the docker escape we will perform.  For  understanding on how the docker escape works read: https://blog.trailofbits.com/2019/07/19/understanding-docker-container-escapes/
