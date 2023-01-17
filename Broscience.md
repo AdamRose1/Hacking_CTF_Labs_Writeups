@@ -109,18 +109,18 @@ Use this to perform a deserialization attack.
 
 Step 1: Create a file containing a php pentestmonkey reverse shell.  We will call the filename ‘friends.php’.    <br>
 Step 2: Create the php file for the deserialization attack (we will call the filename dattack.php): 
- 
-![image](https://user-images.githubusercontent.com/93153300/212941342-2437f119-f195-4c76-b104-759b7d7fbc0f.png)
- 
+
+![image](https://user-images.githubusercontent.com/93153300/212986630-68944993-4b0e-4c7b-8660-b90260abc8da.png)
+
 This script will be used to upload the ‘friends.php’ php reverse shell to the target.  <br>
 Step 3: Open a python server on our pc to host the ‘friends.php’ file: python3 -m http.server 80 <br>
 Step 4: Run the file ‘ dattack.php’:
  
-![image](https://user-images.githubusercontent.com/93153300/212941366-fa51e914-1101-436f-bb74-b9e0646c2048.png)
+![image](https://user-images.githubusercontent.com/93153300/212986880-711a0191-0438-4105-891a-cea4caa4ff6c.png)
  
-Step 5: Go back to the burp suite capture of our logged on user and replace the cookie ‘user-prefs’ value with the output to the ‘php dattack.php’ command.  It should look as follows:
- 
-![image](https://user-images.githubusercontent.com/93153300/212941389-85387369-54ee-4ca3-8bbc-3be057d4c4c2.png)
+Step 5: Go back to the burp suite capture of our logged on user and replace the 'Decoded from: Base64' value with the output we got from ‘php dattack.php’ command, and then click on 'Apply changes'.  This will create a new cookie value.  It should look as follows:
+
+![image](https://user-images.githubusercontent.com/93153300/212987128-403ab3ba-dc3d-450c-925d-52371ac5d99c.png)
 
 Step 6: Send the request in burp suite with the new cookie value.  The ‘friends.php’ uploaded successfully to the target.  <br>
 Step 7: Open a netcat listener (we will use pwncat because it gives a better shell): pwncat-cs -lp 443 <br>
