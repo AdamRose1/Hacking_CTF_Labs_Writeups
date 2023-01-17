@@ -1,4 +1,4 @@
-<h2>Target:  10.10.11.195	broscience.htb </h2>
+<h2>Target:  10.10.11.195	Broscience </h2>
 
 <b>Initial Access:</b><br>
 nmap -Pn -p- --min-rate=5000 10.10.11.195 |grep open|awk -F / '{print $1}'|tr '\n' ',' <br>
