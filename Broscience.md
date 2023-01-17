@@ -101,7 +101,7 @@ Not much we can do with this page.  However, reading the source code to ‘utils
  
 ![image](https://user-images.githubusercontent.com/93153300/212941244-ad6017c0-8cf9-4179-9470-c5c6546c1ed8.png)
  
-The source code shows that the cookie ‘user-prefs’ is being serialized.  Check this further in burp suite.  Refresh the page to our logged in user and capture the request in burp suite.  Burp suite shows the ‘user-prefs’ cookie is serialized:
+The source code shows that the cookie ‘user-prefs’ is being serialized and deserialized.  Check this further in burp suite.  Refresh the page to our logged in user and capture the request in burp suite.  Burp suite shows the ‘user-prefs’ cookie is serialized:
 
 ![image](https://user-images.githubusercontent.com/93153300/212941294-0911a30c-baab-497c-80f3-c3c47297a597.png)
 
