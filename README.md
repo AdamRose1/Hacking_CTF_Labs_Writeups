@@ -1,1 +1,1 @@
-These are my writeups for HackTheBox machines
+These are my writeups for HackTheBox labs
