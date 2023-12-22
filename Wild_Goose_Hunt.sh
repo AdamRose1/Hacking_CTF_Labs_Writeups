@@ -1,5 +1,5 @@
 #!/bin/bash
-# Used this script to solve the HackTheBox Challenge "Wild Goose Hunt".  This script takes advantage of a MongoDB NoSQL injection to brute force the admin password.
+# This script solves the HackTheBox Challenge "Wild Goose Hunt".  This script takes advantage of a MongoDB NoSQL injection to brute force the admin password.
 
 # Create the files (helpful for organizing parallel jobs)
 echo -n '' > flag.txt
