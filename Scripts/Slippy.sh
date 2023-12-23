@@ -1,5 +1,5 @@
 #!/bin/bash
-# Created this script to solve the HackTheBox challenge called "Slippy".  zipslip atttack
+# Created this script to solve the HackTheBox challenge called "Slippy".  This script performs a zipslip atttack.
 
 # Create directory and file content (run as root):
 mkdir -p /app/application/blueprints
