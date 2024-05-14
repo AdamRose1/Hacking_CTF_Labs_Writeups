@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Used the below script to solve the lab on HackTheBox Academy - Introduction To Deserialization Attacks - Skills Assessment I
+# Used the below script to solve the lab on HackTheBox Academy - Deserialization Attacks - Skills Assessment I
 # To catch the reverse shell: open a netcat listener on port 4444, and update the target_url value before running the script
 
 import os
