@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # This script exploits a server side javascript injection on a NoSQL database.  
-# Used this to solve the HackTheBox Academy - Skills Assessment II - MangoFile
+# Used this to solve the lab on HackTheBox Academy - NoSQL Injection - Skills Assessment II
 
 import requests
 import string
