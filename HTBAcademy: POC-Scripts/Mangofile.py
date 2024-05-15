@@ -1,8 +1,6 @@
 #! /usr/bin/env python3
 # This script exploits a server side javascript injection on a NoSQL database to get the password reset token.  
 # Wrote this to solve the lab on HackTheBox Academy - NoSQL Injection - Skills Assessment II
-#!/usr/bin/env python3
-#!/usr/bin/env python3
 
 import requests
 import string
