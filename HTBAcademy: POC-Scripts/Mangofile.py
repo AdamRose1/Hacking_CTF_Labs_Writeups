@@ -30,7 +30,6 @@ def nosqli():
                     if future.result():                    
                         found_char = future_to_char[future]       
                         break
-
         if found_char:
             secret += found_char
             print(secret)                      
