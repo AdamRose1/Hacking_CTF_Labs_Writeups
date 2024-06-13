@@ -3,6 +3,7 @@
 
 import requests 
 import time
+import subprocess
 
 url = "http://localhost:5000"
 
@@ -44,3 +45,5 @@ try:
                 command()
 except KeyboardInterrupt:
         print("ctrl +c detected, exiting gracefully")
+        # clean up
+        subprocess.run("sed -i '17d' src/app.js", shell=True)
