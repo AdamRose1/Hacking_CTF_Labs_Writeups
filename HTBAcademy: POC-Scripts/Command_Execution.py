@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-# POC to solve the lab called 'INTRO TO WHITEBOX PENTESTING: Command Execution' on HackTheBox Academy 
+# Created this script to solve the lab called 'INTRO TO WHITEBOX PENTESTING: Command Execution' on HackTheBox Academy 
 
 import requests 
 import time
