@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # Created to solve the lab on HackTheBox Academy called 'XPath Blind Exploitation'.
-# This script runs an XPath injection attack on the target
+# This script runs a Blind XPath injection attack on the target
 
 import requests 
 import concurrent.futures
