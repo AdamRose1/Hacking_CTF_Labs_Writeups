@@ -55,7 +55,7 @@ Content-Disposition: form-data; name="0"
     response=requests.post(url=f"http://{url}", proxies=proxies, headers=headers, data=data2)
     response_text=response.text
     for line in response_text.splitlines():
-        if "token" in line:
+        if "token" in line or "Scanned" in line:
             print(line)
 
 ssrf_ssti()
