@@ -2,11 +2,8 @@
 
 """
 Created this script to solve the HackTheBox challenge called 'DoxPit'.  
-This script exploits a server side request forgery that is then leveraged to exploit a server side
-template injection that is only accessible using the server side request forgery.
-"""
+This script exploits a server side request forgery that is then leveraged to exploit a server side template injection on a function that is only accessible internally.
 
-"""
 Follow the below steps before running the script:
 
 Step 1: Use a server that is publicly accessible
