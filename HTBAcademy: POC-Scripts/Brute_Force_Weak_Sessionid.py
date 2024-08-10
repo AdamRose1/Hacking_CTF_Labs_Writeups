@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-# Created this script to solve the HackTheBox Academy lab called 'Weak Session IDs' for the module called 'Abusing HTTP Misconfigurations'
-# This script brute forces a weak sessionID length
+Created this script to solve the HackTheBox Academy lab called 'Weak Session IDs' for the module called 'Abusing HTTP Misconfigurations'
+This script brute forces a weak sessionID length
 """
 
 import requests
