@@ -34,7 +34,7 @@ def find_magic_hash():
             for num in range(1,1000):
                 hash_word= pw_hash(f"{word}{num}")
                 if hash_word.startswith("0e") and hash_word[2:].isdigit():
-                    print(f"Found the hash: {hash_word}.  The bypass for Larry is password: {word}:{num}")
+                    print(f"Found the hash: {hash_word}.  The bypass for Larry is password: {word}{num}")
                     pwd_larry_bypass= f"{word}{num}"
                     return pwd_larry_bypass
                     count+=1
