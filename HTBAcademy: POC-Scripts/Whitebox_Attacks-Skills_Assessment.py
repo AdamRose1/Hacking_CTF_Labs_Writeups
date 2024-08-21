@@ -6,7 +6,7 @@ Created this script to solve the HackTheBox Academy lab called 'Skills Assessmen
 Explanation of what the script does: 
 The script first calculates a magic hash --> then uses the magic hash to exploit php type juggling to login as user 'larry' (non-admin account) --> then exploits a race condition on a 'delete user' function on the site while trying to access the 'admin page' at the same time --> this causes the user role to be set to null --> and finally uses php type juggling on the 'user role' to get the admin page.  This works in getting the admin page due to the admin page having a check in place of: 
 "if ($user_data['role'] != 0) { header('Location: profile.php'); exit; }"
-Due to the race condition performed, this causes a check of null != 0.  Since the check is using a loose comparison, null does equal to 0 and thereforie we get access to the admin page.
+Due to the race condition performed, this causes the $user_data['role'] to equal null since it has been deleted in the middle of accessing the admin.php page.  So the check equates to null != 0.  Since the check is using a loose comparison, null does equal to 0 and therefore gets access to the admin page.
 
 Let the script run for a minute or two until the race condition is successful.  
 """
