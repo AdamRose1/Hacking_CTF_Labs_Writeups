@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-
-# This script exploits a second order sql (blind boolean) injection.  
+'''
+Created this to exploit one of the targets on a Hack The Box Pro Lab.
+This script exploits a second order sql injection (blind boolean).  
+'''
 
 import requests
 import string
