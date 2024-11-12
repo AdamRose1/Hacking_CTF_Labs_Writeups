@@ -8,7 +8,7 @@ import requests
 import string
 
 def sqli():
-    target= "152.16.1.19"
+    target= "152.16.1.12"
     proxies= {"http":"http://127.0.0.1:8080",
             "https":"http://127.0.0.1:8080"}
     headers={"Content-Type": "multipart/form-data;boundary=---------------------------29609271438811050402597506081"}
