@@ -28,8 +28,7 @@ def nosqli():
             else:
                 count+=1
                 pass
-    print(tracking_number)
-    
+
 try:
     nosqli()
 except KeyboardInterrupt:
