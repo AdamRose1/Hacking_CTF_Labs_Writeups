@@ -13,7 +13,7 @@ headers= {"Content-type":"application/x-www-form-urlencoded"}
 
 # Create list
 def create_charlist():
-    clist= string.ascii_letters+string.digits+"{}'\"!@_#%"
+    clist= string.ascii_letters+string.digits+"{}'\"!@_#%,"
     return clist
 
 # Run Blind Server Side Javascript Injection on NoSQL query
