@@ -15,7 +15,7 @@ def sqli():
     count=0
     combine_chars=''
     for num in numlist:
-        if count > 100:
+        if count > 94:
             break
         for char in charlist:                     
             # Dump data
