@@ -44,7 +44,7 @@ Step 5: On the target shell, change to user sysadmin: su sysadmin → enter the 
 
 We have shell as user sysadmin.  We can get the flag in /home/sysadmin/local.txt
 _____________________________________________
-<b>Privilege EscalationL</b><br>
+<b>Privilege Escalation</b><br>
 Step 1: Check for background processes that are running.  In order to do this we will use pspy.  Upload pspy to the target shell and run pspy.  
 
 Pspy shows a process running a file called /home/sysadmin/scripts/script.php as the root user.  
