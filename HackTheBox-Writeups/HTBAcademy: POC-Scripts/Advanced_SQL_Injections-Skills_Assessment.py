@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """Created this script to solve the HackTheBox Academy lab called 'Skills Assessment' for the module called 'Advanced SQL Injections'. 
-This script exploits a postgres injection to dump credentials"""
+This script exploits a postgreSQL injection to dump credentials"""
 
 import requests
 import string
