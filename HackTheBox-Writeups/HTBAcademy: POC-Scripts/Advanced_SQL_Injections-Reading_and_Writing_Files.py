@@ -31,7 +31,7 @@ def generate_random_word():
 random_group = generate_random_word()
 
 def list_files():
-    dir= "/home/test/"
+    dir= "/home/test/" # Create the correct files for the rev shell and put into this directory
     files = os.listdir(dir)
     files = [f for f in files if os.path.isfile(os.path.join(dir, f))]
     files.sort()
