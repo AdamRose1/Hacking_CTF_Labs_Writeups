@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """Created this script to solve the HackTheBox Academy lab called 'Skills Assessment' for the module called 'Advanced SQL Injections'. 
-This script exploits a blind postgreSQL injection to get a reverse shell.
+This script exploits a blind postgreSQL injection to create a PostgreSQL extension which is then used to get a reverse shell.
 Open a netcat listener for port 443 before running the script
 """
 
