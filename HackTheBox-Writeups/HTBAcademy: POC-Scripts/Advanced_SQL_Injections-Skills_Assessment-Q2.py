@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """Created this script to solve the HackTheBox Academy lab called 'Skills Assessment' for the module called 'Advanced SQL Injections'. 
-This script exploits a blind postgreSQL injection to create a PostgreSQL extension which is then used to get a reverse shell.
+This script exploits a blind stacked postgreSQL injection to create a PostgreSQL extension which is then used to get a reverse shell. Used a 'SELECT lo_put' query to upload the file since 'INSERT' failed. 
 Open a netcat listener for port 443 and update the ip address in the variable 'end_data' before running the script
 """
 
